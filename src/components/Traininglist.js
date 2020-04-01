@@ -1,15 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
+import Snackbar from '@material-ui/core/Snackbar';
+import Button from '@material-ui/core/Button';
 
 
 
 export default function Traininglist() {
     const [trainings, setTrainings] = useState([]);
+    const [open, setOpen] = React.useState(false);
 
     
 
     useEffect(() => fetchData() , []);
+
+    const handleClick = () => {
+        setOpen(true);
+      };
+
+      const snackClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
     
 
     const fetchData = () => {
@@ -20,10 +35,14 @@ export default function Traininglist() {
     }
 
     const deleteTraining = (link) => {
+
+        if (window.confirm('Are you sure you want to delete')) {
         fetch(link, {method: 'DELETE'})
         .then(res => fetchData())
         .catch(err => console.error(err))
+        handleClick()
    }
+}
 
 
 
@@ -54,10 +73,13 @@ export default function Traininglist() {
             
         },
         {
+            sortable: false,
+            filterable: false,
+            width: 100,
             accessor: '',
-            Cell: row => <button onClick={() => 
+            Cell: row => <Button color="secondary" onClick={() => 
             deleteTraining(`https://customerrest.herokuapp.com/api/trainings/${row.original.id}`)}>
-                Delete</button>
+                Delete</Button>
         }
 
 
@@ -69,6 +91,23 @@ export default function Traininglist() {
     return (
         <div>
             <ReactTable filterable={true} data={trainings} columns={columns} />
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                open={open}
+                autoHideDuration={6000}
+                onClose={snackClose}
+                message="Training deleted"
+                action={
+            <React.Fragment>
+                <Button color="secondary" size="small" onClick={snackClose}>
+                    CLOSE
+                </Button>
+            </React.Fragment>
+                }
+                />
         </div>
         
     );
