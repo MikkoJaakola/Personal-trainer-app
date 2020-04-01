@@ -19,7 +19,12 @@ export default function Traininglist() {
         
     }
 
-    
+    const deleteTraining = (link) => {
+        fetch(link, {method: 'DELETE'})
+        .then(res => fetchData())
+        .catch(err => console.error(err))
+   }
+
 
 
 
@@ -48,6 +53,12 @@ export default function Traininglist() {
               )
             
         },
+        {
+            accessor: '',
+            Cell: row => <button onClick={() => 
+            deleteTraining(`https://customerrest.herokuapp.com/api/trainings/${row.original.id}`)}>
+                Delete</button>
+        }
 
 
     ]

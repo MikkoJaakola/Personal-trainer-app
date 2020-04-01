@@ -13,6 +13,14 @@ export default function Customerlist() {
         .then(data => setCustomers(data.content))
     }
 
+
+   const deleteCustomer = (link) => {
+        fetch(link, {method: 'DELETE'})
+        .then(res => fetchData())
+        .catch(err => console.error(err))
+   }
+    
+
     const columns = [
         {
             Header: 'Firstname',
@@ -41,6 +49,10 @@ export default function Customerlist() {
             Header: 'Phone',
             accessor: 'phone'
         },
+        {
+            accessor: 'links.0.href',
+            Cell: row => <button onClick={() => deleteCustomer(row.value)}>Delete</button>
+        }
     ]
 
 
