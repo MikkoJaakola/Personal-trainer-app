@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
+import moment from 'moment';
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
 
@@ -51,6 +52,10 @@ export default function Traininglist() {
         {
             Header: 'Date',
             accessor: 'date',
+            Cell: row => (
+                <div>{moment(row.original.date).format("DD/MM/YYYY")} <div>
+                    {moment(row.original.date).format("HH:mm")}</div></div>
+                )
            
             
         },

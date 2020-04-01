@@ -4,6 +4,7 @@ import 'react-table/react-table.css';
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
 import AddCustomer from './AddCustomer';
+import EditCustomer from './EditCustomer';
 
 export default function Customerlist() {
     const [customers, setCustomers] = useState([]);
@@ -55,6 +56,20 @@ export default function Customerlist() {
         .catch(err => console.error(err) )
     }
 
+    const updateCustomer = (customer, link) => {
+        fetch(link, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(customer)
+        }
+            )
+        .then(res => fetchData())
+        .catch(err => console.error(err))
+    
+    }
+
     const columns = [
         {
             Header: 'Firstname',
@@ -82,6 +97,12 @@ export default function Customerlist() {
         }, {
             Header: 'Phone',
             accessor: 'phone'
+        },
+        {
+            sortable: false,
+            filterable: false,
+            width: 100,
+            Cell: row => <EditCustomer updateCustomer={updateCustomer} customer={row.original} />            
         },
         {
             sortable: false,
