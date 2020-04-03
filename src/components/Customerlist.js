@@ -5,10 +5,12 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
 import AddCustomer from './AddCustomer';
 import EditCustomer from './EditCustomer';
+import AddTraining from './AddTraining';
 
 export default function Customerlist() {
     const [customers, setCustomers] = useState([]);
     const [open, setOpen] = React.useState(false);
+    
 
     useEffect(() => fetchData() , []);
 
@@ -51,6 +53,18 @@ export default function Customerlist() {
             'content-Type': 'application/json'
         },
         body: JSON.stringify(customer)
+    })
+        .then(res => fetchData())
+        .catch(err => console.error(err) )
+    }
+
+    const saveTraining = (training) => {
+        fetch('https://customerrest.herokuapp.com/api/trainings', {
+        method: 'POST',
+        headers: {
+            'content-Type': 'application/json'
+        },
+        body: JSON.stringify(training)
     })
         .then(res => fetchData())
         .catch(err => console.error(err) )
@@ -102,6 +116,12 @@ export default function Customerlist() {
             sortable: false,
             filterable: false,
             width: 100,
+            Cell: row => <AddTraining saveTraining={saveTraining} customer={row.original} />            
+        },
+        {
+            sortable: false,
+            filterable: false,
+            width: 100,
             Cell: row => <EditCustomer updateCustomer={updateCustomer} customer={row.original} />            
         },
         {
@@ -118,6 +138,7 @@ export default function Customerlist() {
 
     return (
         <div>
+            
             <AddCustomer saveCustomer={saveCustomer} />
             <ReactTable filterable={true} data={customers} columns={columns} />
             <Snackbar
