@@ -3,6 +3,8 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import AddCustomer from './AddCustomer';
 import EditCustomer from './EditCustomer';
 import AddTraining from './AddTraining';
@@ -10,6 +12,8 @@ import AddTraining from './AddTraining';
 export default function Customerlist() {
     const [customers, setCustomers] = useState([]);
     const [open, setOpen] = React.useState(false);
+
+    
     
 
     useEffect(() => fetchData() , []);
@@ -86,10 +90,12 @@ export default function Customerlist() {
 
     const columns = [
         {
+            width: 100,
             Header: 'Firstname',
             accessor: 'firstname'
         },
         {
+            width: 100,
             Header: 'Lastname',
             accessor: 'lastname'
         },
@@ -98,10 +104,12 @@ export default function Customerlist() {
             accessor: 'streetaddress'
         },
         {
+            width: 75,
             Header: 'Postcode',
             accessor: 'postcode'
         },
         {
+            width: 100,
             Header: 'City',
             accessor: 'city'
         },
@@ -109,27 +117,31 @@ export default function Customerlist() {
             Header: 'Email',
             accessor: 'email'
         }, {
+            width: 150,
             Header: 'Phone',
             accessor: 'phone'
         },
         {
             sortable: false,
             filterable: false,
-            width: 100,
+            width: 125,
             Cell: row => <AddTraining saveTraining={saveTraining} customer={row.original} />            
         },
         {
             sortable: false,
             filterable: false,
-            width: 100,
+            width: 75,
             Cell: row => <EditCustomer updateCustomer={updateCustomer} customer={row.original} />            
         },
         {
             sortable: false,
             filterable: false,
-            width: 100,
+            width: 50,
             accessor: 'links.0.href',
-            Cell: row => <Button color="secondary" onClick={() => deleteCustomer(row.value)}>Delete</Button>
+            Cell: row => <IconButton aria-label="delete" color="secondary" 
+            onClick={() => deleteCustomer(row.value)}>
+                <DeleteIcon />
+            </IconButton>
         }
     ]
 

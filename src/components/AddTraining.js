@@ -41,7 +41,7 @@ export default function Addtraining(props) {
 
     return(
         <div>
-        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        <Button size="small" variant="outlined" color="primary" onClick={handleClickOpen}>
             Add training
         </Button>
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

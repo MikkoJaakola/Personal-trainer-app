@@ -4,6 +4,8 @@ import 'react-table/react-table.css';
 import moment from 'moment';
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 
@@ -82,9 +84,10 @@ export default function Traininglist() {
             filterable: false,
             width: 100,
             accessor: '',
-            Cell: row => <Button color="secondary" onClick={() => 
+            Cell: row => <IconButton color="secondary" onClick={() => 
             deleteTraining(`https://customerrest.herokuapp.com/api/trainings/${row.original.id}`)}>
-                Delete</Button>
+                <DeleteIcon />
+                </IconButton>
         }
 
 

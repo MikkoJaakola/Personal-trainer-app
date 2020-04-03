@@ -41,7 +41,7 @@ export default function Editcar(props) {
 
     return(
         <div>
-            <Button color="primary" onClick={handleClickOpen}>
+            <Button size="small" color="primary" onClick={handleClickOpen}>
                 Edit
             </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
