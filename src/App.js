@@ -8,6 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Customerlist from './components/Customerlist';
 import Traininglist from './components/Traininglist';
+import Calendar from './components/Calendar'
+
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -60,6 +63,7 @@ export default function SimpleTabs() {
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Customers" {...a11yProps(0)} />
           <Tab label="Trainings" {...a11yProps(1)} />
+          <Tab label="Calendar" {...a11yProps(2)} />
           
         </Tabs>
       </AppBar>
@@ -68,6 +72,10 @@ export default function SimpleTabs() {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Traininglist />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        
+        <Calendar />
       </TabPanel>
       
     </div>
